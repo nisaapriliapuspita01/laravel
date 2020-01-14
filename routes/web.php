@@ -10,11 +10,31 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Kelas;
-Route::get('/', function () {
-    //return view('welcome');
-    return Kelas::all();
-});
+Route::get('Contoh','contohController@latihan');
+
+Route::get('Profil','contohController@latihan2');
+
+Route::get('Profil2','contohController@latihan3');
+
+Route::get('Profil3','contohController@latihan4');
+
+Route::get('Profil4','contohController@latihan5');
+
+Route::get('menu/{naon}','contohController@menu');
+
+Route::get('menuu/{naon?}/{minum?}/{ukuran?}','contohController@apa');
+
+Route::get('get-penulis','PenulisController@index');
+
+Route::get('create-buku','PenulisController@buat_data');
+
+Route::get('get-penulis/{id}','PenulisController@show');
+
+Route::get('delete-penulis/{id}','PenulisController@delete');
+
+Route::get('update-penulis','PenulisController@update');
+
+Route::get('hitung-penulis','PenulisController@hitung_buku');
 
 Route::get('/nama', function () {
     return ('Hai Nama Saya Nisa Aprilia');
