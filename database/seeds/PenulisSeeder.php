@@ -12,8 +12,8 @@ class PenulisSeeder extends Seeder
     public function run()
     {
 
-        $buku = new Penulis;
-        $buku->judul= 'BelajarPhp2';
+       $buku = new Penulis;
+        $buku->judul= 'BelajarPhp1';
         $buku->jumlah_halaman= 100;
         $buku->penerbit= 'Gramedia Pustaka';
         $buku->synopsis= "saya..";

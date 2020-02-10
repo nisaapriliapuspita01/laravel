@@ -24,9 +24,11 @@ Route::get('menu/{naon}','contohController@menu');
 
 Route::get('menuu/{naon?}/{minum?}/{ukuran?}','contohController@apa');
 
+
+//CRUD BUKU
 Route::get('get-penulis','PenulisController@index');
 
-Route::get('create-buku','PenulisController@buat_data');
+Route::get('create-penulis','PenulisController@buat_data');
 
 Route::get('get-penulis/{id}','PenulisController@show');
 
@@ -35,6 +37,104 @@ Route::get('delete-penulis/{id}','PenulisController@delete');
 Route::get('update-penulis','PenulisController@update');
 
 Route::get('hitung-penulis','PenulisController@hitung_buku');
+
+//CRUD SISWA
+Route::get('get-siswa','SiswaController@index');
+
+Route::get('create-siswa','SiswaController@buat_data');
+
+Route::get('get-siswa/{id}','SiswaController@show');
+
+Route::get('delete-siswa/{id}','SiswaController@delete');
+
+Route::get('update-siswa/{id}/{nama}/{nis}/{tgl_lahir}','SiswaController@update');
+
+//pasing data
+Route::get('pass','PracticeController@pass');
+Route::get('pass1','PracticeController@pass1');
+Route::get('status/{a?}','PracticeController@status');
+Route::get('buku','PracticeController@loop');
+
+//book
+Route::get('book','PenulisController@index');
+Route::get('book/{id}','PenulisController@show');
+
+//gaji
+Route::get('gajih','GajiController@indexgaji');
+Route::get('gajih/{id}','GajiController@showgaji');
+
+//Belajar Template
+Route::get('/profil',function()
+{
+    return view ('profil');
+});
+
+Route::get('/kontak',function()
+{
+    return view ('kontak');
+});
+
+Route::get('/blog',function()
+{
+    return view ('blog');
+});
+
+//relasi
+use App\Mahasiswa;
+use App\Dosen;
+use App\Wali;
+
+Route::get('relasi-1', function () {
+    $mahasiswa = Mahasiswa::where('nim','=','0123452')->first();
+
+    return $mahasiswa->wali->nama;
+
+});
+Route::get('relasi-2', function () {
+    //mencari data mahasiswa dengan nim
+    $mahasiswa = Mahasiswa::where('nim','=','0123452')
+    ->first();
+    //menampilkan nama dosen dari pembimbing mahasiswa
+    return $mahasiswa->dosen->nama;
+
+});
+Route::get('relasi-3', function () {
+    //mencari dosen dengan nama
+    $dosen = Dosen::where('nama','=','Nisa')
+    ->first();
+    // tampilkan seluruh data mahasiswa didiknya
+    foreach($dosen->mahasiswa as $temp)
+    echo '<li> Nama : ' . $temp->nama .
+    '<strong>' . $temp->nim . '</strong></li>';
+
+});
+Route::get('relasi-4', function ( ) {
+    //mencari data mahasiswa yang bernama susan
+    $novay= Mahasiswa::where('nama','=','Susan')
+    ->first();
+    //menampilkan seluruh hobi susan
+    foreach ($novay->hobi as $temp)
+    echo '<li>' . $temp->hobi . '</li>';
+
+});
+Route::get('relasi-5', function ( ) {
+    //mencari hobi yang bernama Mandi hujan
+    $mandi_hujan = Hobi::where('hobi','=','mandi hujan')->first();
+    //menampilkan semua mahasiswa yang punya hobi mandi hujan
+    foreach ($mandi_hujan->mahasiswa as $temp)
+    echo '<li> Nama : ' . $temp->nama .
+    '<strong>' . $temp->nim . '</strong></li>';
+});
+
+Route::get('eloquent', function ( ) {
+    $data = Mahasiswa::with('wali','dosen','hobi')->get();
+    return view ('eloquent',compact('data'));
+});
+
+
+
+
+
 
 Route::get('/nama', function () {
     return ('Hai Nama Saya Nisa Aprilia');
